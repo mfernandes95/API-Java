@@ -1,5 +1,6 @@
 package com.example.kamikaze.entities;
 
+import com.example.kamikaze.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.*;
@@ -17,7 +18,9 @@ public class Order implements Serializable {
     private Long id;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
-    private Instant date;
+    private Instant moment;
+
+    private Integer orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -25,9 +28,10 @@ public class Order implements Serializable {
 
     public Order(){}
 
-    public Order(Long id, Instant date, User client) {
+    public Order(Long id, Instant date, OrderStatus orderStatus, User client) {
         this.id = id;
-        this.date = date;
+        this.moment = date;
+        setOrderStatus(orderStatus);
         this.client = client;
     }
 
@@ -40,11 +44,22 @@ public class Order implements Serializable {
     }
 
     public Instant getDate() {
-        return date;
+        return moment;
     }
 
     public void setDate(Instant date) {
-        this.date = date;
+        this.moment = date;
+    }
+
+    public OrderStatus getOrderStatus() {
+        return OrderStatus.valueOf(orderStatus);
+    }
+
+    public void setOrderStatus(OrderStatus orderStatus) {
+
+        if(orderStatus != null) {
+            this.orderStatus = orderStatus.getCode();
+        }
     }
 
     public User getClient() {
