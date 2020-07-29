@@ -2,8 +2,7 @@ package com.example.kamikaze.services;
 
 
 import com.example.kamikaze.entities.Order;
-import com.example.kamikaze.repositories.OrderrRepository;
-import com.example.kamikaze.repositories.UserRepository;
+import com.example.kamikaze.repositories.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,7 @@ import java.util.Optional;
 public class OrderService {
 
     @Autowired
-    private OrderrRepository repository;
+    private OrderRepository repository;
 
     public List<Order> findAll() {
         return repository.findAll();
