@@ -16,16 +16,24 @@ services:
     ports:
       - 5432:5432
 
-#  db_mongo:
-#    container_name: mongo_kamikaze
-#    image: mongo:3.4.21-xenial
-#    ports:
-#      - 27017:27017
-#    networks:
-#      - kamikaze
-#    restart: on-failure
-#    volumes:
-#      - ./database/mongodb:/var/lib/mongodb/data
+  api_java:
+    build: .
+    networks:
+      - kamikaze
+    links:
+      - db_postgres
+    depends_on:
+      - db_postgres
+    container_name: 'java_kamikaze'
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db_postgres:5432/kamikaze
+    volumes:
+      - .:/usr/app
+    ports:
+      - 8080:8080
+    command: 'sh /usr/app/start.sh'
+#    env_file: .dockerenv
+
 
 networks:
   kamikaze:
