@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  db_postgres:
+    networks:
+      - kamikaze
+    restart: on-failure
+    image: postgres:12.1-alpine
+    container_name: 'postgres_kamikaze'
+    environment:
+      - POSTGRES_DB=kamikaze
+      - POSTGRES_USER=postgres
+      # - POSTGRES_PASSWORD:docker
+    volumes:
+      - './database/postgres:/var/lib/postgresql/data'
+    ports:
+      - 5432:5432
+
+#  db_mongo:
+#    container_name: mongo_kamikaze
+#    image: mongo:3.4.21-xenial
+#    ports:
+#      - 27017:27017
+#    networks:
+#      - kamikaze
+#    restart: on-failure
+#    volumes:
+#      - ./database/mongodb:/var/lib/mongodb/data
+
+networks:
+  kamikaze:
