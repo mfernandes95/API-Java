@@ -1,1 +1,3 @@
-web: docker-compose up
+list: ls
+
+dockerUp: docker-compose up --build
