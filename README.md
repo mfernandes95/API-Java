@@ -1,4 +1,4 @@
-# API-java
+# Order-payment-api
 
 <p>API in Java using: Spring, H2, Postgres</p>
 
